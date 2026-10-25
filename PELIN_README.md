@@ -1,61 +1,73 @@
-# Pelin’in Havası
+# Pelin’in Havası ☀️
 
-Bilişim Kampı referans uygulamasına dayanan kişisel Android projesi.
-Kaynak: https://github.com/tc-yusufburakdemir/weather-app
-Temel alınan commit: 884c9bf6166dfb36dd133c97879bc1965aa00544
-Orijinal README ve açıklamalar korunmuştur.
+Turkcell Bilişim Kampı kapsamında, kampın referans projesi temel alınarak kişiselleştirilmiş Android hava durumu uygulaması.
 
-## Korunan özellikler
-Şehir arama, anlık sıcaklık, hissedilen sıcaklık, nem, rüzgâr,
-24 saatlik ve 7 günlük tahmin, yüklenme/boş/hata ekranları,
-tekrar deneme, navigasyon ve mevcut testler.
+Şehir arayabilir, anlık hava durumunu inceleyebilir ve saatlik veya 7 günlük tahminlerle gününü planlayabilirsin.
 
-## Eklenenler
-- Favori şehirleri ekle/çıkar; hızlı erişim için şehir çipleri.
-- Son bakılan beş şehir ve geçmişi temizleme.
-- Sistem/açık/koyu tema seçimi.
-- Favoriler, geçmiş ve tema SharedPreferences ile cihazda kalıcıdır.
-- Pelin karşılama alanı, kişisel uygulama adı, başlangıçta Gaziantep araması.
-- Yeni aramada önceki arama iptal edilir.
+## Özellikler
 
-## Android Studio ile açma
-1. ZIP dosyasını bir klasöre çıkar.
-2. Android Studio > Open ile settings.gradle.kts içeren klasörü seç.
-3. Gradle Sync işlemini tamamla; gerekiyorsa SDK 36 kurulumunu kabul et.
-4. API 26 veya üzeri emülatör/Android cihaz seç ve Run düğmesine bas.
-5. API anahtarı gerekmez; hava verileri için internet gerekir.
+- Şehir adına göre arama
+- Anlık sıcaklık ve hava durumu
+- Hissedilen sıcaklık, nem ve rüzgâr hızı
+- Önümüzdeki 24 saat için sıcaklık ve yağış olasılığı
+- 7 günlük en düşük ve en yüksek sıcaklık tahminleri
+- Favori şehirleri ekleme, çıkarma ve hızlı erişim
+- Son görüntülenen beş şehir ve geçmişi temizleme
+- Sistem, açık ve koyu tema seçenekleri
+- Favorilerin, geçmişin ve tema seçiminin cihazda saklanması
+- Hava verilerini yenileme ve verinin zamanını görüntüleme
+- Yağış, hissedilen sıcaklık ve rüzgâra göre günlük plan önerileri
+- Yüklenme, sonuç bulunamaması ve bağlantı hatası ekranları
 
-## Doğrulama
-Bu ortamda Gradle indirme adresine erişilemediğinden derleme ve testler
-çalıştırılamadı; APK üretilmedi. Android Studio’da test ve derleme yapılmalıdır.
-Komut: ./gradlew testDebugUnitTest assembleDebug
+## Referans Projeye Eklediğim Özellikler
 
-Elle kontrol: şehir ara, favoriye ekle, şehre dokunup tahminleri gör,
-geri dön ve son aramayı aç, tema değiştir, uygulamayı yeniden başlatıp
-tercihleri kontrol et, interneti kapatıp hata/tekrar denemeyi kontrol et.
+Kampın şehir arama ve hava tahmini altyapısı korunarak favori şehirler, son görüntülenen şehirler, kalıcı tema tercihleri ve kişisel karşılama alanı eklendi.
 
-## Değişiklikleri öğrenme sırası
-1. data/PersonalSettings.kt: kalıcı tercihler.
-2. MainActivity.kt: tema ve tercihlerin ekrana aktarılması.
-3. ui/city/PersonalPanel.kt: karşılama, tema ve hızlı erişim.
-4. CityCard.kt: favori düğmesi.
-5. CityScreen.kt: şehir açarken geçmişi güncelleme.
-6. CityViewModel.kt: Gaziantep başlangıcı ve eski isteği iptal etme.
+Tahmin ekranına yenileme düğmesi, veri zamanı ve günlük plan önerileri eklendi. Saatlik tahminlerin seçilen şehrin yerel veri zamanına göre gösterilmesi sağlandı. Sıfır yağış olasılığı ile eksik verinin gösterimi birbirinden ayrıldı.
 
-## İkinci sürüm: günlük kullanıma yönelik düzeltmeler
-- Tahmin ekranından yeniden veri getiren Yenile düğmesi.
-- API verisinin tarihi ve şehrin yerel saati etiketi.
-- Saatlik tahminler telefon yerine API current zamanından seçilir.
-- Gece yarısından sonraki saatlerde tarih gösterilir.
-- Yağış %0 ile bilinmeyen değer (—) ayrı gösterilir.
-- Nem, rüzgâr, hissedilen sıcaklık eksikse — gösterilir.
-- Saatlik/günlük veri yoksa açıklama gösterilir.
-- Yağış, hissedilen sıcaklık ve rüzgârla ilgili basit plan önerileri.
-- Arama simgesine basarak da arama başlatılır; boş arama internete gönderilmez.
-- Yinelenen tahmin istekleri iptal edilir, bozuk tarih yanıtı hata ekranına dönüşür.
-- Yeni sunum kuralları için regresyon testleri eklendi; başlangıç şehir testi güncellendi.
+## Kullanılan Teknolojiler
 
-Sınırlar: cihaz konumu, internet yokken önbellekten tahmin, otomatik yenileme,
-bildirimler ve resmî uyarı entegrasyonu henüz uygulanmadı. Öneriler yalnızca
-API tahmin verilerinden hesaplanır. Verinin zamanı indirme zamanı değildir.
-Saatlik liste son alınan verinin zamanını temel alır; uzun süre açık kalırsa Yenile kullanılmalıdır.
+- Kotlin
+- Jetpack Compose ve Material 3
+- ViewModel ve StateFlow
+- Kotlin Coroutines
+- Retrofit ve Gson
+- Navigation Compose
+- SharedPreferences
+
+## Proje Yapısı
+
+- `model`: Şehir ve hava tahmini modelleri
+- `data`: API bağlantıları, repository sınıfları ve kişisel tercihler
+- `ui`: Şehir arama, tahmin ekranları ve tema
+
+## Çalıştırma
+
+1. Depoyu bilgisayarına klonla.
+2. Android Studio’da proje klasörünü aç.
+3. Gradle JDK olarak Java 17 veya 21 seç.
+4. Gerekli Android SDK 36 bileşenlerini kur ve Gradle Sync işlemini tamamla.
+5. Android 8.0 (API 26) veya üzeri bir emülatör ya da cihaz seç.
+6. Run düğmesine bas.
+
+Hava verilerinin alınması için internet bağlantısı gerekir. Projenin mevcut API çağrıları için API anahtarı girilmez.
+
+## Veri Kaynağı
+
+Şehir arama ve hava tahminleri [Open-Meteo](https://open-meteo.com/) servisinden alınır.
+
+Günlük plan önerileri tahmin verilerinden basit kurallarla üretilir; resmî meteoroloji uyarısı değildir.
+
+## Geliştirilmesi Planlananlar
+
+- Cihaz konumundan hava durumunu getirme
+- İnternet yokken son kaydedilen tahmini görüntüleme
+- Uygulama simgesi ve görsel tasarımın geliştirilmesi
+
+## Kaynak ve Katkı
+
+Bu uygulama, Turkcell Bilişim Kampı’nda kullanılan
+[tc-yusufburakdemir/weather-app](https://github.com/tc-yusufburakdemir/weather-app)
+referans projesi temel alınarak geliştirilmiştir.
+
+Kişiselleştirme ve ek geliştirmeler: **Pelin Özbilgin**
